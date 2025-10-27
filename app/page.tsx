@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 import { Player, PlacedPlayer, BoardSection, GameState } from '@/types/game';
 import { frolundaPlayers, leksandPlayers } from '@/data/players';
@@ -117,7 +118,17 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <header className={styles.header}>
-        <h1 className={styles.title}>🏒 Play-by-Play Hockey</h1>
+        <h1 className={styles.title}>
+          <Image
+            src="/favicon.ico"
+            alt="Play-by-Play logo"
+            width={56}
+            height={56}
+            className={styles.titleIcon}
+            priority
+          />
+          <span className={styles.titleText}>Play-by-Play</span>
+        </h1>
         <p className={styles.subtitle}>Strategy Card Game</p>
       </header>
 

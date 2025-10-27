@@ -5,7 +5,7 @@
   background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
   border: 2px solid #333;
   border-radius: 12px;
-  overflow: hidden;
+  overflow: visible;
   transition: all 0.3s ease;
   cursor: default;
 }
@@ -22,20 +22,22 @@
 
 .card.selected {
   border-color: #4ade80;
-  box-shadow: 0 0 20px rgba(74, 222, 128, 0.4);
+  box-shadow: 0 8px 24px rgba(74, 222, 128, 0.5);
+  transform: translateY(-10px);
+  z-index: 2;
 }
 
 /* Sizes */
 .card.small {
-  width: 80px;
+  width: 100px;
 }
 
 .card.medium {
-  width: 120px;
+  width: 180px;
 }
 
 .card.large {
-  width: 160px;
+  width: 220px;
 }
 
 .imageWrapper {
@@ -43,55 +45,30 @@
   width: 100%;
   aspect-ratio: 3/4;
   background: #111;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .image {
   object-fit: cover;
 }
 
-.info {
-  display: flex;
-  flex-direction: column;
-  padding: 8px;
-  gap: 4px;
-  background: rgba(0, 0, 0, 0.6);
-}
-
-.number {
-  font-size: 0.75rem;
-  font-weight: bold;
-  color: #646cff;
-}
-
-.name {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #fff;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.position {
-  font-size: 0.7rem;
-  color: #888;
-  text-transform: uppercase;
-}
-
-.checkmark {
+.selectionBadge {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 24px;
-  height: 24px;
-  background: #4ade80;
-  border-radius: 50%;
+  left: 50%;
+  bottom: -14px;
+  transform: translateX(-50%);
+  background: rgba(74, 222, 128, 0.95);
+  color: #0a0a0a;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  padding: 6px 14px;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(74, 222, 128, 0.45);
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: #000;
-  font-weight: bold;
-  font-size: 14px;
+  gap: 6px;
 }
 
 .card[draggable='true'] {
@@ -102,4 +79,3 @@
   cursor: grabbing;
   opacity: 0.8;
 }
-

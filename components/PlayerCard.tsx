@@ -12,12 +12,12 @@ interface PlayerCardProps {
   size?: 'small' | 'medium' | 'large';
 }
 
-export default function PlayerCard({ 
-  player, 
-  isSelected = false, 
-  onClick, 
+export default function PlayerCard({
+  player,
+  isSelected = false,
+  onClick,
   draggable = false,
-  size = 'medium' 
+  size = 'medium'
 }: PlayerCardProps) {
   const handleDragStart = (e: React.DragEvent) => {
     if (draggable) {
@@ -33,23 +33,23 @@ export default function PlayerCard({
       onClick={onClick}
       draggable={draggable}
       onDragStart={handleDragStart}
+      aria-label={player.name}
     >
       <div className={styles.imageWrapper}>
         <Image
           src={player.imageUrl}
           alt={player.name}
           fill
-          sizes="(max-width: 768px) 100px, 150px"
+          sizes="(max-width: 768px) 150px, 200px"
           className={styles.image}
         />
       </div>
-      <div className={styles.info}>
-        <span className={styles.number}>#{player.number}</span>
-        <span className={styles.name}>{player.name}</span>
-        <span className={styles.position}>{player.position}</span>
-      </div>
-      {isSelected && <div className={styles.checkmark}>✓</div>}
+      {isSelected && (
+        <div className={styles.selectionBadge}>
+          <span>✓</span>
+          <span>Selected</span>
+        </div>
+      )}
     </div>
   );
 }
-

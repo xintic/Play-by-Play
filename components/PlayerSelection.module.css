@@ -112,8 +112,10 @@
 
 .playerGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 34px 28px;
+  padding: 6px 4px;
+  align-items: flex-start;
 }
 
 @media (max-width: 768px) {
@@ -132,8 +134,8 @@
   }
 
   .playerGrid {
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 20px 16px;
+    padding: 4px 0;
   }
 }
-

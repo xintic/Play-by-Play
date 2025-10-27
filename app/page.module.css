@@ -14,11 +14,25 @@
 
 .title {
   margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.titleText {
   font-size: 3rem;
   background: linear-gradient(135deg, #646cff 0%, #4ade80 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.titleIcon {
+  width: 56px;
+  height: 56px;
 }
 
 .subtitle {
@@ -135,19 +149,23 @@
 
 .placementContainer {
   display: flex;
-  flex-direction: column;
-  gap: 24px;
-  padding: 0 24px;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 36px;
+  padding: 0 32px;
   width: 100%;
   box-sizing: border-box;
+  justify-content: center;
 }
 
 .draggableRoster {
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.4);
-  border: 2px solid #333;
-  border-radius: 12px;
-  width: 100%;
+  padding: 28px;
+  background: rgba(0, 0, 0, 0.55);
+  border: 2px solid #3f3f3f;
+  border-radius: 18px;
+  width: 420px;
+  flex-shrink: 0;
+  box-shadow: 0 18px 32px rgba(0, 0, 0, 0.45);
 }
 
 .draggableRoster h4 {
@@ -165,17 +183,21 @@
 }
 
 .draggableCards {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px 24px;
+  justify-items: center;
 }
 
 .boardSection {
-  width: 100%;
-  min-width: 0;
-  overflow: hidden;
+  flex: 0 1 580px;
+  max-width: 100%;
+  min-width: 320px;
+  overflow: visible;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 0;
 }
 
 .selectedRoster {
@@ -289,7 +311,8 @@
 
 @media (max-width: 1024px) {
   .draggableRoster {
-    padding: 16px;
+    padding: 22px;
+    width: 360px;
   }
 }
 
@@ -343,11 +366,25 @@
   }
 
   .placementContainer {
+    flex-direction: column;
     gap: 20px;
     padding: 0 16px;
   }
 
+  .draggableRoster {
+    width: 100%;
+    padding: 18px;
+  }
+
   .draggableCards {
-    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px 14px;
+  }
+
+  .boardSection {
+    width: 100%;
+    flex: 1 1 auto;
+    justify-content: center;
+    overflow: hidden;
   }
 }

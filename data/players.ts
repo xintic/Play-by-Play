@@ -7,7 +7,7 @@ export const frolundaPlayers: Player[] = [
     name: 'Born',
     number: 17,
     team: 'Frölunda',
-    position: 'forward',
+    position: 'left-wing',
     imageUrl: '/PlayerCards/Frölunda/Born.jpg'
   },
   {
@@ -23,7 +23,7 @@ export const frolundaPlayers: Player[] = [
     name: 'Edström',
     number: 75,
     team: 'Frölunda',
-    position: 'forward',
+    position: 'center',
     imageUrl: '/PlayerCards/Frölunda/Edstrom.jpg'
   },
   {
@@ -31,7 +31,7 @@ export const frolundaPlayers: Player[] = [
     name: 'Eriksson',
     number: 21,
     team: 'Frölunda',
-    position: 'forward',
+    position: 'right-wing',
     imageUrl: '/PlayerCards/Frölunda/Eriksson.jpg'
   },
   {
@@ -39,7 +39,7 @@ export const frolundaPlayers: Player[] = [
     name: 'Folin',
     number: 2,
     team: 'Frölunda',
-    position: 'defense',
+    position: 'right-defense',
     imageUrl: '/PlayerCards/Frölunda/Folin.jpg'
   },
   {
@@ -47,7 +47,7 @@ export const frolundaPlayers: Player[] = [
     name: 'Friberg',
     number: 12,
     team: 'Frölunda',
-    position: 'forward',
+    position: 'right-wing',
     imageUrl: '/PlayerCards/Frölunda/Friberg.jpg'
   },
   {
@@ -55,7 +55,7 @@ export const frolundaPlayers: Player[] = [
     name: 'Högberg',
     number: 33,
     team: 'Frölunda',
-    position: 'defense',
+    position: 'left-defense',
     imageUrl: '/PlayerCards/Frölunda/Högberg.jpg'
   },
   {
@@ -63,7 +63,7 @@ export const frolundaPlayers: Player[] = [
     name: 'Innala',
     number: 27,
     team: 'Frölunda',
-    position: 'forward',
+    position: 'left-wing',
     imageUrl: '/PlayerCards/Frölunda/Innala.jpg'
   },
   {
@@ -71,7 +71,7 @@ export const frolundaPlayers: Player[] = [
     name: 'Johansson F',
     number: 5,
     team: 'Frölunda',
-    position: 'defense',
+    position: 'left-defense',
     imageUrl: '/PlayerCards/Frölunda/JohanssonF.jpg'
   },
   {
@@ -87,7 +87,7 @@ export const frolundaPlayers: Player[] = [
     name: 'Lasu',
     number: 31,
     team: 'Frölunda',
-    position: 'forward',
+    position: 'center',
     imageUrl: '/PlayerCards/Frölunda/Lasu.jpg'
   },
   {
@@ -95,15 +95,15 @@ export const frolundaPlayers: Player[] = [
     name: 'Lundqvist',
     number: 20,
     team: 'Frölunda',
-    position: 'forward',
+    position: 'center',
     imageUrl: '/PlayerCards/Frölunda/Lundqvist.jpg'
   },
   {
     id: 'f-nilsson',
     name: 'Nilsson',
-    number: 44,
+    number: 43,
     team: 'Frölunda',
-    position: 'forward',
+    position: 'right-defense',
     imageUrl: '/PlayerCards/Frölunda/Nilsson.jpg'
   },
   {
@@ -111,7 +111,7 @@ export const frolundaPlayers: Player[] = [
     name: 'Rosseli Olsen',
     number: 51,
     team: 'Frölunda',
-    position: 'forward',
+    position: 'left-wing',
     imageUrl: '/PlayerCards/Frölunda/Rosseli Olsen.jpg'
   },
   {
@@ -119,7 +119,7 @@ export const frolundaPlayers: Player[] = [
     name: 'Ruohomaa',
     number: 39,
     team: 'Frölunda',
-    position: 'forward',
+    position: 'center',
     imageUrl: '/PlayerCards/Frölunda/Ruohomaa.jpg'
   },
   {
@@ -127,7 +127,7 @@ export const frolundaPlayers: Player[] = [
     name: 'Strömwall',
     number: 88,
     team: 'Frölunda',
-    position: 'forward',
+    position: 'right-wing',
     imageUrl: '/PlayerCards/Frölunda/Strömwall.jpg'
   },
   {
@@ -135,7 +135,7 @@ export const frolundaPlayers: Player[] = [
     name: 'Thorell',
     number: 86,
     team: 'Frölunda',
-    position: 'forward',
+    position: 'left-wing',
     imageUrl: '/PlayerCards/Frölunda/Thorell.jpg'
   },
   {
@@ -143,7 +143,7 @@ export const frolundaPlayers: Player[] = [
     name: 'Tömmernes',
     number: 7,
     team: 'Frölunda',
-    position: 'defense',
+    position: 'left-defense',
     imageUrl: '/PlayerCards/Frölunda/Tömmernes.jpg'
   },
   {
@@ -163,7 +163,7 @@ export const leksandPlayers: Player[] = [
     name: 'Alsing',
     number: 38,
     team: 'Leksand',
-    position: 'defense',
+    position: 'right-defense',
     imageUrl: '/PlayerCards/Leksand/Alsing.jpg'
   },
   {
@@ -179,7 +179,7 @@ export const leksandPlayers: Player[] = [
     name: 'Ashton',
     number: 44,
     team: 'Leksand',
-    position: 'forward',
+    position: 'left-wing',
     imageUrl: '/PlayerCards/Leksand/Ashton.jpg'
   },
   {
@@ -187,7 +187,7 @@ export const leksandPlayers: Player[] = [
     name: 'Caito',
     number: 8,
     team: 'Leksand',
-    position: 'defense',
+    position: 'right-defense',
     imageUrl: '/PlayerCards/Leksand/Caito.jpg'
   },
   {
@@ -195,7 +195,7 @@ export const leksandPlayers: Player[] = [
     name: 'Cehlarik',
     number: 34,
     team: 'Leksand',
-    position: 'forward',
+    position: 'left-wing',
     imageUrl: '/PlayerCards/Leksand/Cehlarik.jpg'
   },
   {
@@ -203,7 +203,7 @@ export const leksandPlayers: Player[] = [
     name: 'Elvenes',
     number: 25,
     team: 'Leksand',
-    position: 'forward',
+    position: 'right-wing',
     imageUrl: '/PlayerCards/Leksand/Elvenes.jpg'
   },
   {
@@ -211,7 +211,7 @@ export const leksandPlayers: Player[] = [
     name: 'Johansson',
     number: 10,
     team: 'Leksand',
-    position: 'defense',
+    position: 'right-defense',
     imageUrl: '/PlayerCards/Leksand/Johansson.jpg'
   },
   {
@@ -219,7 +219,7 @@ export const leksandPlayers: Player[] = [
     name: 'Karlberg',
     number: 7,
     team: 'Leksand',
-    position: 'forward',
+    position: 'left-wing',
     imageUrl: '/PlayerCards/Leksand/Karlberg.jpg'
   },
   {
@@ -227,7 +227,7 @@ export const leksandPlayers: Player[] = [
     name: 'Karlsson',
     number: 11,
     team: 'Leksand',
-    position: 'forward',
+    position: 'right-wing',
     imageUrl: '/PlayerCards/Leksand/Karlsson.jpg'
   },
   {
@@ -235,7 +235,7 @@ export const leksandPlayers: Player[] = [
     name: 'Kloos',
     number: 28,
     team: 'Leksand',
-    position: 'forward',
+    position: 'right-wing',
     imageUrl: '/PlayerCards/Leksand/Kloos.jpg'
   },
   {
@@ -243,7 +243,7 @@ export const leksandPlayers: Player[] = [
     name: 'Knuts',
     number: 13,
     team: 'Leksand',
-    position: 'forward',
+    position: 'center',
     imageUrl: '/PlayerCards/Leksand/Knuts.jpg'
   },
   {
@@ -251,7 +251,7 @@ export const leksandPlayers: Player[] = [
     name: 'Lang',
     number: 14,
     team: 'Leksand',
-    position: 'forward',
+    position: 'left-wing',
     imageUrl: '/PlayerCards/Leksand/Lang.jpg'
   },
   {
@@ -267,7 +267,7 @@ export const leksandPlayers: Player[] = [
     name: 'Lindholm',
     number: 37,
     team: 'Leksand',
-    position: 'defense',
+    position: 'left-defense',
     imageUrl: '/PlayerCards/Leksand/Lindholm.jpg'
   },
   {
@@ -275,7 +275,7 @@ export const leksandPlayers: Player[] = [
     name: 'Lundqvist',
     number: 6,
     team: 'Leksand',
-    position: 'defense',
+    position: 'left-defense',
     imageUrl: '/PlayerCards/Leksand/Lundqvist.jpg'
   },
   {
@@ -283,7 +283,7 @@ export const leksandPlayers: Player[] = [
     name: 'Norén',
     number: 26,
     team: 'Leksand',
-    position: 'defense',
+    position: 'left-defense',
     imageUrl: '/PlayerCards/Leksand/Noren.jpg'
   },
   {
@@ -291,7 +291,7 @@ export const leksandPlayers: Player[] = [
     name: 'Östman',
     number: 12,
     team: 'Leksand',
-    position: 'forward',
+    position: 'center',
     imageUrl: '/PlayerCards/Leksand/Östman.jpg'
   },
   {
@@ -299,7 +299,7 @@ export const leksandPlayers: Player[] = [
     name: 'Unger Sörum',
     number: 16,
     team: 'Leksand',
-    position: 'forward',
+    position: 'right-wing',
     imageUrl: '/PlayerCards/Leksand/Unger Sörum.jpg'
   },
   {
@@ -307,7 +307,7 @@ export const leksandPlayers: Player[] = [
     name: 'Vejdemo',
     number: 22,
     team: 'Leksand',
-    position: 'forward',
+    position: 'center',
     imageUrl: '/PlayerCards/Leksand/Vejdemo.jpg'
   },
   {
@@ -315,7 +315,7 @@ export const leksandPlayers: Player[] = [
     name: 'Veronneau',
     number: 15,
     team: 'Leksand',
-    position: 'forward',
+    position: 'right-wing',
     imageUrl: '/PlayerCards/Leksand/Veronneau.jpg'
   },
   {
@@ -323,7 +323,7 @@ export const leksandPlayers: Player[] = [
     name: 'Zackrisson',
     number: 9,
     team: 'Leksand',
-    position: 'forward',
+    position: 'center',
     imageUrl: '/PlayerCards/Leksand/Zackrisson.jpg'
   }
 ];

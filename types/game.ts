@@ -1,5 +1,11 @@
 // Player types
-export type PlayerPosition = 'forward' | 'defense' | 'goalie';
+export type PlayerPosition =
+  | 'goalie'
+  | 'left-defense'
+  | 'right-defense'
+  | 'left-wing'
+  | 'center'
+  | 'right-wing';
 
 export interface Player {
   id: string;
@@ -10,19 +16,18 @@ export interface Player {
   imageUrl: string;
 }
 
-// Board sections - Hockey rink layout
-// Goalie zones at each end, then defensive/neutral/offensive zones with home/away sides
+// Board sections - Numbered rink layout with goalie creases
 export type BoardSection =
-  | 'goalie-home' // Home team's goalie zone (top)
-  | 'defensive-home' // Home defensive zone
-  | 'defensive-away' // Away defensive zone
-  | 'neutral-left-home' // Neutral zone left side (home)
-  | 'neutral-left-away' // Neutral zone left side (away)
-  | 'neutral-right-home' // Neutral zone right side (home)
-  | 'neutral-right-away' // Neutral zone right side (away)
-  | 'offensive-home' // Home offensive zone
-  | 'offensive-away' // Away offensive zone
-  | 'goalie-away'; // Away team's goalie zone (bottom)
+  | 'goalie-home' // Home team's goalie crease (top)
+  | 'zone-7'
+  | 'zone-8'
+  | 'zone-5'
+  | 'zone-6'
+  | 'zone-3'
+  | 'zone-4'
+  | 'zone-1'
+  | 'zone-2'
+  | 'goalie-away'; // Away team's goalie crease (bottom)
 
 export interface PlacedPlayer {
   player: Player;

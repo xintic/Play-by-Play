@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Player } from '@/types/game';
+import { Player, PlayerPosition } from '@/types/game';
 import PlayerCard from './PlayerCard';
 import styles from './PlayerSelection.module.css';
 
@@ -13,6 +13,34 @@ interface PlayerSelectionProps {
   onGoalieSelect: (player: Player) => void;
 }
 
+const positionOrder: PlayerPosition[] = [
+  'goalie',
+  'left-defense',
+  'right-defense',
+  'left-wing',
+  'center',
+  'right-wing'
+];
+
+const positionLabels: Record<PlayerPosition, string> = {
+  goalie: 'Goalies',
+  'left-defense': 'Left Defense',
+  'right-defense': 'Right Defense',
+  'left-wing': 'Left Wing',
+  center: 'Center',
+  'right-wing': 'Right Wing'
+};
+
+const filterOptions: Array<{ label: string; value: 'all' | PlayerPosition }> = [
+  { label: 'All', value: 'all' },
+  { label: 'Goalies', value: 'goalie' },
+  { label: 'Left Defense', value: 'left-defense' },
+  { label: 'Right Defense', value: 'right-defense' },
+  { label: 'Left Wing', value: 'left-wing' },
+  { label: 'Center', value: 'center' },
+  { label: 'Right Wing', value: 'right-wing' }
+];
+
 export default function PlayerSelection({
   availablePlayers,
   selectedPlayers,
@@ -20,16 +48,19 @@ export default function PlayerSelection({
   onPlayerSelect,
   onGoalieSelect,
 }: PlayerSelectionProps) {
-  const [filterPosition, setFilterPosition] = useState<'all' | 'forward' | 'defense' | 'goalie'>('all');
+  const [filterPosition, setFilterPosition] = useState<'all' | PlayerPosition>('all');
 
-  const filteredPlayers = availablePlayers.filter((player) => {
-    if (filterPosition !== 'all' && player.position !== filterPosition) return false;
-    return true;
-  });
+  const filteredPlayers = availablePlayers
+    .filter((player) => filterPosition === 'all' || player.position === filterPosition)
+    .sort((a, b) => a.number - b.number);
 
-  const forwards = filteredPlayers.filter(p => p.position === 'forward');
-  const defensemen = filteredPlayers.filter(p => p.position === 'defense');
-  const goalies = filteredPlayers.filter(p => p.position === 'goalie');
+  const groupedPlayers = positionOrder
+    .filter((position) => filterPosition === 'all' || filterPosition === position)
+    .map((position) => ({
+      position,
+      players: filteredPlayers.filter((player) => player.position === position)
+    }))
+    .filter((group) => group.players.length > 0);
 
   const isPlayerSelected = (player: Player) => {
     return selectedPlayers.some(p => p.id === player.id) || selectedGoalie?.id === player.id;
@@ -63,86 +94,47 @@ export default function PlayerSelection({
       <div className={styles.filters}>
         <div className={styles.filterGroup}>
           <label>Filter by Position:</label>
-          <button
-            className={filterPosition === 'all' ? styles.active : ''}
-            onClick={() => setFilterPosition('all')}
-          >
-            All
-          </button>
-          <button
-            className={filterPosition === 'forward' ? styles.active : ''}
-            onClick={() => setFilterPosition('forward')}
-          >
-            Forwards
-          </button>
-          <button
-            className={filterPosition === 'defense' ? styles.active : ''}
-            onClick={() => setFilterPosition('defense')}
-          >
-            Defense
-          </button>
-          <button
-            className={filterPosition === 'goalie' ? styles.active : ''}
-            onClick={() => setFilterPosition('goalie')}
-          >
-            Goalies
-          </button>
+          {filterOptions.map(({ label, value }) => (
+            <button
+              key={value}
+              className={filterPosition === value ? styles.active : ''}
+              onClick={() => setFilterPosition(value)}
+            >
+              {label}
+            </button>
+          ))}
         </div>
       </div>
 
       <div className={styles.playersContainer}>
-        {filterPosition === 'all' || filterPosition === 'goalie' ? (
-          <div className={styles.positionGroup}>
-            <h3 className={styles.positionTitle}>Goalies {needsGoalie && <span className={styles.required}>*</span>}</h3>
+        {groupedPlayers.map(({ position, players }) => (
+          <div key={position} className={styles.positionGroup}>
+            <h3 className={styles.positionTitle}>
+              {positionLabels[position]}
+              {position === 'goalie' && needsGoalie && (
+                <span className={styles.required}>*</span>
+              )}
+            </h3>
             <div className={styles.playerGrid}>
-              {goalies.map((player) => (
+              {players.map((player) => (
                 <PlayerCard
                   key={player.id}
                   player={player}
                   isSelected={isPlayerSelected(player)}
-                  onClick={() => handlePlayerClick(player)}
+                  onClick={() =>
+                    player.position === 'goalie' ||
+                    canSelectMore ||
+                    isPlayerSelected(player)
+                      ? handlePlayerClick(player)
+                      : undefined
+                  }
                   draggable={isPlayerSelected(player)}
                 />
               ))}
             </div>
           </div>
-        ) : null}
-
-        {filterPosition === 'all' || filterPosition === 'forward' ? (
-          <div className={styles.positionGroup}>
-            <h3 className={styles.positionTitle}>Forwards</h3>
-            <div className={styles.playerGrid}>
-              {forwards.map((player) => (
-                <PlayerCard
-                  key={player.id}
-                  player={player}
-                  isSelected={isPlayerSelected(player)}
-                  onClick={() => canSelectMore || isPlayerSelected(player) ? handlePlayerClick(player) : undefined}
-                  draggable={isPlayerSelected(player)}
-                />
-              ))}
-            </div>
-          </div>
-        ) : null}
-
-        {filterPosition === 'all' || filterPosition === 'defense' ? (
-          <div className={styles.positionGroup}>
-            <h3 className={styles.positionTitle}>Defense</h3>
-            <div className={styles.playerGrid}>
-              {defensemen.map((player) => (
-                <PlayerCard
-                  key={player.id}
-                  player={player}
-                  isSelected={isPlayerSelected(player)}
-                  onClick={() => canSelectMore || isPlayerSelected(player) ? handlePlayerClick(player) : undefined}
-                  draggable={isPlayerSelected(player)}
-                />
-              ))}
-            </div>
-          </div>
-        ) : null}
+        ))}
       </div>
     </div>
   );
 }
-

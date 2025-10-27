@@ -1,133 +1,101 @@
 .boardContainer {
   width: 100%;
   padding: 0;
+  display: flex;
+  justify-content: center;
 }
 
 .boardWrapper {
   position: relative;
-  width: 100%;
-  min-height: 500px;
-  background: #1a1a1a;
-  border-radius: 0;
-  overflow: hidden;
-  border: none;
-  border-top: 3px solid #333;
-  border-bottom: 3px solid #333;
+  width: min(100%, 560px);
+  aspect-ratio: 500 / 800;
 }
 
 .boardImage {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  opacity: 0.3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  inset: 0;
 }
 
 .rinkImage {
   object-fit: contain;
-  transform: rotate(90deg);
-  width: 100vh;
-  height: 100vw;
-  max-width: none;
-  max-height: none;
+  width: 100%;
+  height: 100%;
 }
 
-.sectionsGrid {
+.zonesOverlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  padding: 16px;
+  inset: 0;
+  pointer-events: none;
 }
 
-.goalieRow {
-  flex: 0.8;
+.zone {
+  position: absolute;
+  width: 36%;
+  height: 14%;
+  border: 2px solid transparent;
+  border-radius: 18px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: border-color 0.25s ease, background-color 0.25s ease,
+    transform 0.25s ease;
+  pointer-events: auto;
+  padding: 4px;
+  background: rgba(59, 130, 246, 0.22);
 }
 
-.row {
-  flex: 1;
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  gap: 8px;
+.zone:hover {
+  border-color: rgba(100, 108, 255, 0.4);
+  background: rgba(100, 108, 255, 0.12);
 }
 
-.section {
-  position: relative;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px);
-  padding: 12px;
-  transition: all 0.3s ease;
-  min-height: 120px;
-  display: flex;
-  flex-direction: column;
+.zone.dragOver {
+  border-color: #4ade80;
+  background: rgba(74, 222, 128, 0.18);
+  box-shadow: inset 0 0 18px rgba(74, 222, 128, 0.35);
+  transform: translateY(-2px);
 }
 
-.section:hover {
-  border-color: rgba(100, 108, 255, 0.5);
-  background: rgba(0, 0, 0, 0.6);
+.goalZone {
+  width: 28%;
+  height: 14%;
+  left: 36%;
+  border-radius: 22px;
+  background: rgba(59, 130, 246, 0.22);
 }
 
-.section.dragOver {
+.goalZone:hover {
+  border-color: rgba(59, 130, 246, 0.6);
+  background: rgba(59, 130, 246, 0.22);
+}
+
+.goalZone.dragOver {
   border-color: #4ade80;
   background: rgba(74, 222, 128, 0.2);
-  box-shadow: inset 0 0 20px rgba(74, 222, 128, 0.3);
 }
 
-.section.defensive {
-  border-color: rgba(239, 68, 68, 0.3);
-}
-
-.section.neutral {
-  border-color: rgba(250, 204, 21, 0.3);
-}
-
-.section.offensive {
-  border-color: rgba(34, 197, 94, 0.3);
-}
-
-.section.goalieZone {
-  border-color: rgba(59, 130, 246, 0.5);
-  background: rgba(59, 130, 246, 0.15);
-  min-height: 200px;
-  width: 100%;
-}
-
-.section.goalieZone .sectionLabel {
-  font-size: 0.9rem;
-  color: rgba(59, 130, 246, 0.9);
-}
-
-.sectionLabel {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.7);
-  text-transform: uppercase;
-  margin-bottom: 8px;
-  text-align: center;
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 .playersInSection {
   display: flex;
-  flex-wrap: wrap;
   gap: 8px;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  flex: 1;
+  padding: 4px;
 }
 
 .placedPlayer {
@@ -138,55 +106,79 @@
   transform: scale(1.05);
 }
 
+.zoneHomeGoalie {
+  top: 4%;
+}
+
+.zoneAwayGoalie {
+  bottom: 4%;
+}
+
+.zoneLeft {
+  left: 10%;
+}
+
+.zoneRight {
+  right: 10%;
+}
+
+.zone7 {
+  top: 19%;
+}
+
+.zone8 {
+  top: 19%;
+}
+
+.zone5 {
+  top: 34%;
+}
+
+.zone6 {
+  top: 34%;
+}
+
+.zone3 {
+  top: 50%;
+}
+
+.zone4 {
+  top: 50%;
+}
+
+.zone1 {
+  top: 66%;
+}
+
+.zone2 {
+  top: 66%;
+}
+
 @media (max-width: 768px) {
-  .boardContainer {
-    padding: 0;
-  }
-
   .boardWrapper {
-    min-height: 400px;
+    width: min(100%, 420px);
   }
 
-  .rinkImage {
-    transform: none;
-    width: 100%;
-    height: 100%;
+  .zone {
+    width: 44%;
+    height: 16%;
   }
 
-  .sectionsGrid {
-    padding: 12px 8px;
-    gap: 6px;
-    flex-direction: column;
+  .goalZone {
+    width: 34%;
+    height: 16%;
+    left: 33%;
   }
 
-  .goalieRow {
-    flex: 0.7;
-    flex-direction: row;
+  .zoneLeft {
+    left: 8%;
   }
 
-  .row {
-    gap: 6px;
-    grid-template-rows: none;
-    grid-template-columns: 1fr 1fr;
+  .zoneRight {
+    right: 8%;
   }
 
-  .section {
-    padding: 10px 6px;
-    min-height: 100px;
-  }
-
-  .section.goalieZone {
-    min-height: 150px;
-    width: 100%;
-    padding: 12px;
-  }
-
-  .sectionLabel {
-    font-size: 0.7rem;
-    margin-bottom: 6px;
-  }
-
-  .playersInSection {
-    gap: 6px;
+  .zoneLabel {
+    font-size: 0.6rem;
   }
 }

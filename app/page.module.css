@@ -1,41 +1,353 @@
 .main {
-  max-width: 1280px;
+  min-height: 100vh;
+  width: 100%;
+  padding: 0;
+  background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);
+  overflow-x: hidden;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 24px 24px 0;
+}
+
+.title {
+  margin: 0;
+  font-size: 3rem;
+  background: linear-gradient(135deg, #646cff 0%, #4ade80 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  margin: 8px 0 0 0;
+  color: #888;
+  font-size: 1.2rem;
+}
+
+.phaseIndicator {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding: 0 24px;
+  flex-wrap: wrap;
+}
+
+.phaseButton {
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #aaa;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.phaseButton:hover:not(.disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.phaseButton.active {
+  background: #646cff;
+  border-color: #646cff;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(100, 108, 255, 0.4);
+}
+
+.phaseButton.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.teamPhase,
+.selectionPhase {
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0 24px;
+}
+
+.placementPhase,
+.playingPhase {
+  width: 100%;
+  padding: 0;
+}
+
+.teamBadge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 16px 32px;
+  background: linear-gradient(
+    135deg,
+    rgba(100, 108, 255, 0.2),
+    rgba(74, 222, 128, 0.2)
+  );
+  border: 2px solid rgba(100, 108, 255, 0.4);
+  border-radius: 12px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.teamLabel {
+  color: #888;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.teamNameBadge {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.instructions {
+  text-align: center;
+  margin: 0 24px 24px;
+  padding: 20px;
+  background: rgba(100, 108, 255, 0.1);
+  border: 1px solid rgba(100, 108, 255, 0.3);
+  border-radius: 8px;
+}
+
+.instructions h3 {
+  margin: 0 0 8px 0;
+  color: #646cff;
+}
+
+.instructions p {
+  margin: 0;
+  color: #aaa;
+}
+
+.placementContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 0 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.draggableRoster {
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid #333;
+  border-radius: 12px;
+  width: 100%;
+}
+
+.draggableRoster h4 {
+  margin: 0 0 8px 0;
+  color: #fff;
+  font-size: 1.1rem;
   text-align: center;
 }
 
-.logoContainer {
+.dragHint {
+  margin: 0 0 16px 0;
+  color: #888;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.draggableCards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.boardSection {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.selectedRoster {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid #333;
+  border-radius: 8px;
+}
+
+.selectedRoster h4 {
+  margin: 0 0 12px 0;
+  color: #fff;
+}
+
+.rosterList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.rosterItem {
+  padding: 6px 12px;
+  background: rgba(100, 108, 255, 0.2);
+  border: 1px solid rgba(100, 108, 255, 0.3);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+.proceedButton {
+  margin: 32px 24px;
+  text-align: center;
+}
+
+.proceedButton button {
+  padding: 16px 48px;
+  background: linear-gradient(135deg, #646cff 0%, #4ade80 100%);
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(100, 108, 255, 0.4);
+}
+
+.proceedButton button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(100, 108, 255, 0.6);
+}
+
+.gameInfo {
+  text-align: center;
+  margin: 0 24px 24px;
+  padding: 20px;
+  background: rgba(74, 222, 128, 0.1);
+  border: 2px solid rgba(74, 222, 128, 0.3);
+  border-radius: 8px;
+}
+
+.gameInfo h3 {
+  margin: 0 0 8px 0;
+  color: #4ade80;
+  font-size: 1.8rem;
+}
+
+.gameInfo p {
+  margin: 0;
+  color: #aaa;
+  font-size: 1.1rem;
+}
+
+.teamPlaying {
+  margin: 8px 0 !important;
+}
+
+.teamPlaying strong {
+  color: #4ade80;
+  font-weight: 700;
+}
+
+.gameControls {
+  margin: 32px 24px;
   display: flex;
   justify-content: center;
-  gap: 2rem;
-  margin-bottom: 2rem;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
-.logo {
-  height: auto;
-  width: 100%;
-  max-width: 400px;
+.actionButton {
+  padding: 14px 28px;
+  background: rgba(100, 108, 255, 0.2);
+  border: 2px solid rgba(100, 108, 255, 0.4);
   border-radius: 8px;
-  transition: transform 300ms;
+  color: #646cff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.logo:hover {
-  transform: scale(1.05);
+.actionButton:hover {
+  background: rgba(100, 108, 255, 0.3);
+  border-color: #646cff;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(100, 108, 255, 0.4);
 }
 
-.card {
-  padding: 2em;
+@media (max-width: 1024px) {
+  .draggableRoster {
+    padding: 16px;
+  }
 }
 
-.card code {
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 0.2em 0.4em;
-  border-radius: 4px;
-  font-family: monospace;
-}
+@media (max-width: 768px) {
+  .header {
+    padding: 16px 16px 0;
+  }
 
-.description {
-  color: #888;
-  margin-top: 2rem;
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .phaseIndicator {
+    padding: 0 16px;
+  }
+
+  .phaseButton {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+
+  .teamPhase,
+  .selectionPhase {
+    padding: 0 16px;
+  }
+
+  .instructions,
+  .gameInfo,
+  .proceedButton,
+  .gameControls {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .proceedButton button {
+    padding: 12px 32px;
+    font-size: 1rem;
+  }
+
+  .gameControls {
+    gap: 12px;
+  }
+
+  .actionButton {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+
+  .placementContainer {
+    gap: 20px;
+    padding: 0 16px;
+  }
+
+  .draggableCards {
+    gap: 10px;
+  }
 }

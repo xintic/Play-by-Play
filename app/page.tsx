@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Player, PlacedPlayer, BoardSection, GameState } from '@/types/game';
 import { frolundaPlayers, leksandPlayers } from '@/data/players';
 import TeamSelection from '@/components/TeamSelection';
@@ -10,20 +10,78 @@ import PlayerCard from '@/components/PlayerCard';
 import GameBoard from '@/components/GameBoard';
 import styles from './page.module.css';
 
+const STORAGE_KEY = 'playByPlayState';
+
+const createDefaultGameState = (): GameState => ({
+  selectedPlayers: [],
+  selectedGoalie: null,
+  placedPlayers: [],
+  currentTurn: 'home'
+});
+
+type PersistedState = {
+  selectedTeam: 'Frölunda' | 'Leksand' | null;
+  gameState: GameState;
+  gamePhase: 'team' | 'selection' | 'placement' | 'playing';
+};
+
 export default function Home() {
   const [selectedTeam, setSelectedTeam] = useState<
     'Frölunda' | 'Leksand' | null
   >(null);
-  const [gameState, setGameState] = useState<GameState>({
-    selectedPlayers: [],
-    selectedGoalie: null,
-    placedPlayers: [],
-    currentTurn: 'home'
-  });
-
+  const [gameState, setGameState] = useState<GameState>(createDefaultGameState());
   const [gamePhase, setGamePhase] = useState<
     'team' | 'selection' | 'placement' | 'playing'
   >('team');
+  const [isRestored, setIsRestored] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    try {
+      const stored = window.localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored) as Partial<PersistedState>;
+
+        if (parsed.selectedTeam === 'Frölunda' || parsed.selectedTeam === 'Leksand') {
+          setSelectedTeam(parsed.selectedTeam);
+        }
+
+        if (parsed.gamePhase === 'team' || parsed.gamePhase === 'selection' || parsed.gamePhase === 'placement' || parsed.gamePhase === 'playing') {
+          setGamePhase(parsed.gamePhase);
+        }
+
+        if (parsed.gameState) {
+          setGameState({
+            selectedPlayers: parsed.gameState.selectedPlayers ?? [],
+            selectedGoalie: parsed.gameState.selectedGoalie ?? null,
+            placedPlayers: parsed.gameState.placedPlayers ?? [],
+            currentTurn: parsed.gameState.currentTurn ?? 'home'
+          });
+        }
+      }
+    } catch (error) {
+      console.warn('Failed to load saved state, falling back to defaults.', error);
+    } finally {
+      setIsRestored(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isRestored || typeof window === 'undefined') {
+      return;
+    }
+
+    const stateToPersist: PersistedState = {
+      selectedTeam,
+      gameState,
+      gamePhase
+    };
+
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(stateToPersist));
+  }, [selectedTeam, gameState, gamePhase, isRestored]);
 
   // Get available players based on selected team
   const availablePlayers =
@@ -37,10 +95,7 @@ export default function Home() {
     setSelectedTeam(team);
     // Reset game state when changing teams
     setGameState({
-      selectedPlayers: [],
-      selectedGoalie: null,
-      placedPlayers: [],
-      currentTurn: 'home'
+      ...createDefaultGameState()
     });
   };
 
@@ -108,6 +163,15 @@ export default function Home() {
         ]
       });
     }
+  };
+
+  const handlePlayerRemove = (player: Player) => {
+    setGameState({
+      ...gameState,
+      placedPlayers: gameState.placedPlayers.filter(
+        (pp) => pp.player.id !== player.id
+      )
+    });
   };
 
   const canProceedToSelection = selectedTeam !== null;
@@ -220,6 +284,9 @@ export default function Home() {
               Place your <strong>goalie in the goalie zone</strong> and your{' '}
               <strong>5 players in other zones</strong>
             </p>
+            <p className={styles.instructionsHint}>
+              Drag placed cards between zones to reposition them. Use the close icon if you need to pull one back.
+            </p>
           </div>
 
           <div className={styles.placementContainer}>
@@ -251,6 +318,7 @@ export default function Home() {
               <GameBoard
                 placedPlayers={gameState.placedPlayers}
                 onPlayerPlace={handlePlayerPlace}
+                onPlayerRemove={handlePlayerRemove}
               />
             </div>
           </div>
@@ -280,6 +348,7 @@ export default function Home() {
           <GameBoard
             placedPlayers={gameState.placedPlayers}
             onPlayerPlace={handlePlayerPlace}
+            onPlayerRemove={handlePlayerRemove}
           />
 
           <div className={styles.gameControls}>

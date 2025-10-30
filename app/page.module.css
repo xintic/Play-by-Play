@@ -147,6 +147,12 @@
   color: #aaa;
 }
 
+.instructionsHint {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: #cbd5ff;
+}
+
 .placementContainer {
   display: flex;
   flex-direction: row;

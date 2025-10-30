@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { IoCloseCircleOutline } from 'react-icons/io5';
 import { PlacedPlayer, BoardSection, Player } from '@/types/game';
 import PlayerCard from './PlayerCard';
 import styles from './GameBoard.module.css';
@@ -9,6 +10,7 @@ import styles from './GameBoard.module.css';
 interface GameBoardProps {
   placedPlayers: PlacedPlayer[];
   onPlayerPlace?: (player: Player, section: BoardSection) => void;
+  onPlayerRemove?: (player: Player) => void;
   boardImage?: string;
 }
 
@@ -20,24 +22,77 @@ type ZoneConfig = {
 };
 
 const zoneLayout: ZoneConfig[] = [
-  { id: 'goalie-home', label: 'Home Goalie', type: 'goalie', classes: ['goalZone', 'zoneHomeGoalie'] },
-  { id: 'zone-7', label: 'Zone 7', type: 'skater', classes: ['zoneLeft', 'zone7'] },
-  { id: 'zone-8', label: 'Zone 8', type: 'skater', classes: ['zoneRight', 'zone8'] },
-  { id: 'zone-5', label: 'Zone 5', type: 'skater', classes: ['zoneLeft', 'zone5'] },
-  { id: 'zone-6', label: 'Zone 6', type: 'skater', classes: ['zoneRight', 'zone6'] },
-  { id: 'zone-3', label: 'Zone 3', type: 'skater', classes: ['zoneLeft', 'zone3'] },
-  { id: 'zone-4', label: 'Zone 4', type: 'skater', classes: ['zoneRight', 'zone4'] },
-  { id: 'zone-1', label: 'Zone 1', type: 'skater', classes: ['zoneLeft', 'zone1'] },
-  { id: 'zone-2', label: 'Zone 2', type: 'skater', classes: ['zoneRight', 'zone2'] },
-  { id: 'goalie-away', label: 'Away Goalie', type: 'goalie', classes: ['goalZone', 'zoneAwayGoalie'] }
+  {
+    id: 'goalie-home',
+    label: 'Home Goalie',
+    type: 'goalie',
+    classes: ['goalZone', 'zoneHomeGoalie']
+  },
+  {
+    id: 'zone-7',
+    label: 'Zone 7',
+    type: 'skater',
+    classes: ['zoneLeft', 'zone7']
+  },
+  {
+    id: 'zone-8',
+    label: 'Zone 8',
+    type: 'skater',
+    classes: ['zoneRight', 'zone8']
+  },
+  {
+    id: 'zone-5',
+    label: 'Zone 5',
+    type: 'skater',
+    classes: ['zoneLeft', 'zone5']
+  },
+  {
+    id: 'zone-6',
+    label: 'Zone 6',
+    type: 'skater',
+    classes: ['zoneRight', 'zone6']
+  },
+  {
+    id: 'zone-3',
+    label: 'Zone 3',
+    type: 'skater',
+    classes: ['zoneLeft', 'zone3']
+  },
+  {
+    id: 'zone-4',
+    label: 'Zone 4',
+    type: 'skater',
+    classes: ['zoneRight', 'zone4']
+  },
+  {
+    id: 'zone-1',
+    label: 'Zone 1',
+    type: 'skater',
+    classes: ['zoneLeft', 'zone1']
+  },
+  {
+    id: 'zone-2',
+    label: 'Zone 2',
+    type: 'skater',
+    classes: ['zoneRight', 'zone2']
+  },
+  {
+    id: 'goalie-away',
+    label: 'Away Goalie',
+    type: 'goalie',
+    classes: ['goalZone', 'zoneAwayGoalie']
+  }
 ];
 
 export default function GameBoard({
   placedPlayers,
   onPlayerPlace,
+  onPlayerRemove,
   boardImage = '/game-boards/numbered-board.svg'
 }: GameBoardProps) {
-  const [dragOverSection, setDragOverSection] = useState<BoardSection | null>(null);
+  const [dragOverSection, setDragOverSection] = useState<BoardSection | null>(
+    null
+  );
 
   const handleDragOver = (event: React.DragEvent, section: BoardSection) => {
     event.preventDefault();
@@ -58,7 +113,8 @@ export default function GameBoard({
 
       const player = JSON.parse(playerData) as Player;
 
-      const isGoalieSection = section === 'goalie-home' || section === 'goalie-away';
+      const isGoalieSection =
+        section === 'goalie-home' || section === 'goalie-away';
       if (isGoalieSection && player.position !== 'goalie') {
         alert('Only goalies can be placed in the goalie crease.');
         return;
@@ -114,8 +170,22 @@ export default function GameBoard({
                 <span className={styles.srOnly}>{label}</span>
                 <div className={styles.playersInSection}>
                   {getPlayersInSection(id).map((pp, index) => (
-                    <div key={`${pp.player.id}-${index}`} className={styles.placedPlayer}>
-                      <PlayerCard player={pp.player} size="small" />
+                    <div
+                      key={`${pp.player.id}-${index}`}
+                      className={styles.placedPlayer}
+                    >
+                      <PlayerCard player={pp.player} size="small" draggable />
+                      {onPlayerRemove && (
+                        <button
+                          type="button"
+                          className={styles.removePlayerButton}
+                          onClick={() => onPlayerRemove(pp.player)}
+                          aria-label={`Remove ${pp.player.name} from ${label}`}
+                          title="Remove from board"
+                        >
+                          <IoCloseCircleOutline aria-hidden="true" />
+                        </button>
+                      )}
                     </div>
                   ))}
                 </div>
